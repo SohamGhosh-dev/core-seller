@@ -53,7 +53,7 @@ export function Hero() {
               </a>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <a href="#dashboard">
+              <a href="/leads">
                 <Play className="mr-1 h-4 w-4" /> See It in Action
               </a>
             </Button>
