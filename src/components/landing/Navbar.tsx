@@ -2,32 +2,53 @@ import { Button } from "@/components/ui/button";
 import { Bot, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Dashboard", href: "#dashboard" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Leads", href: "/leads" },
 ];
+
+function scrollToSection(href: string) {
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = (href: string) => {
+    setOpen(false);
+    if (href.startsWith("#")) {
+      scrollToSection(href);
+    } else {
+      navigate(href);
+    }
+  };
+
+  const handleDemo = () => {
+    setOpen(false);
+    scrollToSection("#demo");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <a href="#" className="flex items-center gap-2 font-bold text-xl text-foreground">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2 font-bold text-xl text-foreground">
           <Bot className="h-7 w-7 text-primary" />
           SalesmanAI
-        </a>
+        </button>
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <button key={l.href} onClick={() => handleClick(l.href)} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               {l.label}
-            </a>
+            </button>
           ))}
-          <Button variant="hero" size="sm" asChild>
-            <a href="#demo">Request Demo</a>
+          <Button variant="hero" size="sm" onClick={handleDemo}>
+            Request Demo
           </Button>
         </div>
 
@@ -46,12 +67,12 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-4 p-4">
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                <button key={l.href} onClick={() => handleClick(l.href)} className="text-sm font-medium text-muted-foreground hover:text-foreground text-left">
                   {l.label}
-                </a>
+                </button>
               ))}
-              <Button variant="hero" size="sm" asChild>
-                <a href="#demo">Request Demo</a>
+              <Button variant="hero" size="sm" onClick={handleDemo}>
+                Request Demo
               </Button>
             </div>
           </motion.div>
