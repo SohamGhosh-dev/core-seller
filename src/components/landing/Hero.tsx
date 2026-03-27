@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
+  const navigate = useNavigate();
+
+  const scrollToDemo = () => {
+    const el = document.querySelector("#demo");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       {/* Background gradient */}
@@ -47,15 +55,11 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button variant="hero" size="lg" asChild>
-              <a href="#demo">
-                Request Demo <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
+            <Button variant="hero" size="lg" onClick={scrollToDemo}>
+              Request Demo <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button variant="heroOutline" size="lg" asChild>
-              <a href="/leads">
-                <Play className="mr-1 h-4 w-4" /> See It in Action
-              </a>
+            <Button variant="heroOutline" size="lg" onClick={() => navigate("/leads")}>
+              <Play className="mr-1 h-4 w-4" /> See It in Action
             </Button>
           </motion.div>
 

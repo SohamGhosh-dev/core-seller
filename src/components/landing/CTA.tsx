@@ -1,8 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 export function CTA() {
+  const handleRequestDemo = () => {
+    toast.success("Demo request received!", {
+      description: "Our team will reach out within 24 hours to schedule your personalized walkthrough.",
+    });
+  };
+
   return (
     <section id="demo" className="py-20 md:py-28">
       <div className="container mx-auto px-4">
@@ -22,7 +29,7 @@ export function CTA() {
             <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-8">
               Join 2,000+ teams already using SalesmanAI. Get a personalized demo in under 15 minutes.
             </p>
-            <Button variant="secondary" size="lg" className="font-semibold text-base">
+            <Button variant="secondary" size="lg" className="font-semibold text-base" onClick={handleRequestDemo}>
               Request Demo <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
