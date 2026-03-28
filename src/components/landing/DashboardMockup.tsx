@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -12,10 +13,14 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 
+interface DashboardMockupProps {
+  onChatClick: () => void;
+}
+
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", active: true },
-  { icon: Users, label: "Leads" },
-  { icon: MessageCircle, label: "Chat" },
+  { icon: Users, label: "Leads", action: "leads" },
+  { icon: MessageCircle, label: "Chat", action: "chat" },
   { icon: BarChart3, label: "Analytics" },
   { icon: Settings, label: "Settings" },
 ];
@@ -27,7 +32,14 @@ const stats = [
   { label: "Revenue (MTD)", value: "$2.4M", change: "+18.7%", up: true },
 ];
 
-export function DashboardMockup() {
+export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
+  const navigate = useNavigate();
+
+  const handleItemClick = (item: typeof sidebarItems[0]) => {
+    if (item.action === "chat") onChatClick();
+    if (item.action === "leads") navigate("/leads");
+  };
+
   return (
     <section id="dashboard" className="py-20 md:py-28">
       <div className="container mx-auto px-4">
@@ -59,17 +71,18 @@ export function DashboardMockup() {
 
               <nav className="flex flex-col gap-1">
                 {sidebarItems.map((item) => (
-                  <div
+                  <button
                     key={item.label}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    onClick={() => handleItemClick(item)}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors text-left w-full ${
                       item.active
                         ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                        : "text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
+                        : "text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 cursor-pointer"
                     }`}
                   >
                     <item.icon className="h-4 w-4" />
                     {item.label}
-                  </div>
+                  </button>
                 ))}
               </nav>
             </div>
