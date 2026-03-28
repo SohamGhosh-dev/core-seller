@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -12,10 +13,14 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 
+interface DashboardMockupProps {
+  onChatClick: () => void;
+}
+
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", active: true },
-  { icon: Users, label: "Leads" },
-  { icon: MessageCircle, label: "Chat" },
+  { icon: Users, label: "Leads", action: "leads" },
+  { icon: MessageCircle, label: "Chat", action: "chat" },
   { icon: BarChart3, label: "Analytics" },
   { icon: Settings, label: "Settings" },
 ];
