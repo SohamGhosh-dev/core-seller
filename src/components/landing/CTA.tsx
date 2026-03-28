@@ -27,7 +27,7 @@ export function CTA() {
               Ready to Transform Your Sales Pipeline?
             </h2>
             <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-8">
-              Join 2,000+ teams already using SalesmanAI. Get a personalized demo in under 15 minutes.
+              Get a personalized demo in under 15 minutes and see the impact on your pipeline.
             </p>
             <Button variant="secondary" size="lg" className="font-semibold text-base" onClick={handleRequestDemo}>
               Request Demo <ArrowRight className="ml-1 h-4 w-4" />

@@ -62,16 +62,6 @@ export function Hero() {
               <Play className="mr-1 h-4 w-4" /> See It in Action
             </Button>
           </motion.div>
-
-          {/* Trust bar */}
-          <motion.p
-            className="mt-12 text-sm text-muted-foreground"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            Trusted by 2,000+ sales teams worldwide
-          </motion.p>
         </div>
       </div>
     </section>
