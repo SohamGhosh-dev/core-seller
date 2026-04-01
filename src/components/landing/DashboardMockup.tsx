@@ -50,6 +50,10 @@ const defaultData = [
   { month: "Dec", revenue: 380, leads: 190, conversions: 68, deals: 38, industry: "Cloud", status: "Hot" },
 ];
 
+const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const sortByMonth = <T extends { month: string }>(arr: T[]) =>
+  [...arr].sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
+
 const industries = ["All", "SaaS", "FinTech", "Healthcare", "E-Commerce", "Cloud"];
 const statuses = ["All", "Hot", "Warm", "Cold"];
 const metrics = ["Revenue", "Leads", "Conversions", "Deals"];
@@ -121,11 +125,12 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
   const fullData = orgData.length > 0 ? orgData : defaultData;
 
   const filteredData = useMemo(() => {
-    return fullData.filter((d) => {
+    const filtered = fullData.filter((d) => {
       if (filterIndustry !== "All" && d.industry !== filterIndustry) return false;
       if (filterStatus !== "All" && d.status !== filterStatus) return false;
       return true;
     });
+    return sortByMonth(filtered);
   }, [filterIndustry, filterStatus, fullData]);
 
   const totals = useMemo(() => {
