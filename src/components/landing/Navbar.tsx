@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Dashboard", href: "#dashboard" },
   { label: "Leads", href: "/leads" },
+  { label: "Organization", href: "/organization" },
 ];
 
 function scrollToSection(href: string) {

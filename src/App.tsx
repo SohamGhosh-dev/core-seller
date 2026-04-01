@@ -26,6 +26,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={pageTransition} className="min-h-screen"><Index /></motion.div>} />
         <Route path="/leads" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={pageTransition} className="min-h-screen"><Leads /></motion.div>} />
+        <Route path="/organization" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={pageTransition} className="min-h-screen"><Organization /></motion.div>} />
         <Route path="*" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={pageTransition} className="min-h-screen"><NotFound /></motion.div>} />
       </Routes>
     </AnimatePresence>
