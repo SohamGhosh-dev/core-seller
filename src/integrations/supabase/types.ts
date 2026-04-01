@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      org_metrics: {
+        Row: {
+          conversions: number
+          created_at: string
+          deals: number
+          id: string
+          industry: string
+          leads: number
+          month: string
+          revenue: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          conversions?: number
+          created_at?: string
+          deals?: number
+          id?: string
+          industry?: string
+          leads?: number
+          month: string
+          revenue?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          conversions?: number
+          created_at?: string
+          deals?: number
+          id?: string
+          industry?: string
+          leads?: number
+          month?: string
+          revenue?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

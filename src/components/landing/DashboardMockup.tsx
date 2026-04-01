@@ -1,5 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -34,7 +35,7 @@ interface DashboardMockupProps {
   onChatClick: () => void;
 }
 
-const fullData = [
+const defaultData = [
   { month: "Jan", revenue: 180, leads: 95, conversions: 32, deals: 14, industry: "SaaS", status: "Hot" },
   { month: "Feb", revenue: 210, leads: 110, conversions: 38, deals: 18, industry: "FinTech", status: "Warm" },
   { month: "Mar", revenue: 195, leads: 102, conversions: 35, deals: 15, industry: "Healthcare", status: "Hot" },
@@ -97,6 +98,27 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
   const [filterMetric, setFilterMetric] = useState("Revenue");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<string[]>(["NVDA", "MSFT", "AAPL"]);
+  const [orgData, setOrgData] = useState<typeof defaultData>([]);
+
+  useEffect(() => {
+    const fetchOrgData = async () => {
+      const { data } = await supabase.from("org_metrics").select("*").order("created_at", { ascending: true });
+      if (data && data.length > 0) {
+        setOrgData(data.map((d: any) => ({
+          month: d.month,
+          revenue: Number(d.revenue),
+          leads: d.leads,
+          conversions: d.conversions,
+          deals: d.deals,
+          industry: d.industry,
+          status: d.status,
+        })));
+      }
+    };
+    fetchOrgData();
+  }, []);
+
+  const fullData = orgData.length > 0 ? orgData : defaultData;
 
   const filteredData = useMemo(() => {
     return fullData.filter((d) => {
@@ -104,7 +126,7 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
       if (filterStatus !== "All" && d.status !== filterStatus) return false;
       return true;
     });
-  }, [filterIndustry, filterStatus]);
+  }, [filterIndustry, filterStatus, fullData]);
 
   const totals = useMemo(() => {
     const r = filteredData.reduce(
