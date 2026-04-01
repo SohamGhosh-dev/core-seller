@@ -125,11 +125,12 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
   const fullData = orgData.length > 0 ? orgData : defaultData;
 
   const filteredData = useMemo(() => {
-    return fullData.filter((d) => {
+    const filtered = fullData.filter((d) => {
       if (filterIndustry !== "All" && d.industry !== filterIndustry) return false;
       if (filterStatus !== "All" && d.status !== filterStatus) return false;
       return true;
     });
+    return sortByMonth(filtered);
   }, [filterIndustry, filterStatus, fullData]);
 
   const totals = useMemo(() => {
