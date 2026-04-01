@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index.tsx";
 import Leads from "./pages/Leads.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Organization from "./pages/Organization.tsx";
 
 const queryClient = new QueryClient();
 
