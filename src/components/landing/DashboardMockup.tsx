@@ -35,7 +35,7 @@ interface DashboardMockupProps {
   onChatClick: () => void;
 }
 
-const fullData = [
+const defaultData = [
   { month: "Jan", revenue: 180, leads: 95, conversions: 32, deals: 14, industry: "SaaS", status: "Hot" },
   { month: "Feb", revenue: 210, leads: 110, conversions: 38, deals: 18, industry: "FinTech", status: "Warm" },
   { month: "Mar", revenue: 195, leads: 102, conversions: 35, deals: 15, industry: "Healthcare", status: "Hot" },
