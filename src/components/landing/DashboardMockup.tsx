@@ -98,6 +98,27 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
   const [filterMetric, setFilterMetric] = useState("Revenue");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<string[]>(["NVDA", "MSFT", "AAPL"]);
+  const [orgData, setOrgData] = useState<typeof defaultData>([]);
+
+  useEffect(() => {
+    const fetchOrgData = async () => {
+      const { data } = await supabase.from("org_metrics").select("*").order("created_at", { ascending: true });
+      if (data && data.length > 0) {
+        setOrgData(data.map((d: any) => ({
+          month: d.month,
+          revenue: Number(d.revenue),
+          leads: d.leads,
+          conversions: d.conversions,
+          deals: d.deals,
+          industry: d.industry,
+          status: d.status,
+        })));
+      }
+    };
+    fetchOrgData();
+  }, []);
+
+  const fullData = orgData.length > 0 ? orgData : defaultData;
 
   const filteredData = useMemo(() => {
     return fullData.filter((d) => {
@@ -105,7 +126,7 @@ export function DashboardMockup({ onChatClick }: DashboardMockupProps) {
       if (filterStatus !== "All" && d.status !== filterStatus) return false;
       return true;
     });
-  }, [filterIndustry, filterStatus]);
+  }, [filterIndustry, filterStatus, fullData]);
 
   const totals = useMemo(() => {
     const r = filteredData.reduce(
